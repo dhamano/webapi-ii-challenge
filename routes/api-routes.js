@@ -24,12 +24,10 @@ router.post('/', (req, res) => {
 router.post('/:id/comments', (req, res) => {
   const {id} = req.params;
   const commentInfo = req.body;
-  let post = {};
 
   blogPosts.findById(id)
     .then( thePost => {
       if(thePost.length > 0) {
-        post = thePost;
         Object.assign(commentInfo, { "post_id": id});
         blogPosts.insertComment(commentInfo)
           .then( comment => {
